@@ -1,24 +1,27 @@
-package controller
+package controllers
 
 import (
+	"net/http"
+
 	"github.com/LeMichalski/TaskList/internal/domains"
 	"github.com/LeMichalski/TaskList/internal/ports/usecase"
+	"github.com/gin-gonic/gin"
 )
 
-type TaskController interface{
-	Create(domains.Task)
+type TaskController interface {
+	Create(*gin.Context, domains.Task)
+}
+
+type taskControllerImpl struct {
+	taskUseCaseImpl usecase.TaskUseCase
+}
+
+func NewTaskController() TaskController {
+	return taskControllerImpl{}
 
 }
 
-type taskController struct{
-	taskUseCase usecase.TaskUseCase 
-}
-
-func NewTaskController() TaskUseCase{
- 	return taskController{}
-
-}
-
-func (t taskController) Create(task domains.Task){ 
-	t.taskUseCase.Create(task)
+func (t taskControllerImpl) Create(c *gin.Context, task domains.Task) {
+	t.taskUseCaseImpl.Create(task)
+	c.JSON(http.StatusCreated, nil)
 }

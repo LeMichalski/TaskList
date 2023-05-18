@@ -5,20 +5,19 @@ import (
 	"github.com/LeMichalski/TaskList/internal/ports/repository"
 )
 
-type TaskUseCase interface{
+type TaskUseCase interface {
 	Create(domains.Task)
+}
+
+type taskUseCaseImpl struct {
+	taskRepositoryImpl repository.TaskRepository
+}
+
+func NewTaskUseCase() TaskUseCase {
+	return taskUseCaseImpl{}
 
 }
 
-type taskUseCase struct{
-	taskRepository repository.TaskRepository 
-}
-
-func NewTaskUseCase() TaskUseCase{
- 	return taskUseCase{}
-
-}
-
-func (t taskUseCase) Create(task domains.Task){ 
-	t.taskRepository.Create(task)
+func (t taskUseCaseImpl) Create(task domains.Task) {
+	t.taskRepositoryImpl.Create(task)
 }

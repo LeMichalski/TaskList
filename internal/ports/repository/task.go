@@ -2,20 +2,18 @@ package repository
 
 import "github.com/LeMichalski/TaskList/internal/domains"
 
-type TaskRepository interface{
+type TaskRepository interface {
 	Create(domains.Task)
+}
+
+type taskRepositoryImpl struct {
+}
+
+func NewTaskRepository() TaskRepository {
+	return taskRepositoryImpl{}
 
 }
 
-type taskRepository struct{
-	 
-}
-
-func NewTaskRepository() TaskRepository{
- 	return taskRepository{}
-
-}
-
-func (t taskRepository) Create(domains.Task){
+func (t taskRepositoryImpl) Create(domains.Task) {
 
 }
